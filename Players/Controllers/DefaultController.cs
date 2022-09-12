@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Players.Context;
- 
+using Players.Models;
 
 namespace Players.Controllers
 {
@@ -43,8 +43,28 @@ namespace Players.Controllers
 
         }
 
-         
-         
+
+        public IHttpActionResult Post([FromBody] players player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                //insert new record into database.
+                db.Players.Add(player);
+                db.SaveChanges();
+                foreach (var skill in player.playerSkills)
+                {
+                    //set the ID of each skill
+                    skill.playerId = player.Id;
+                    db.PlayerSkills.Add(skill);
+                    db.SaveChanges();
+                }
+                return Ok(player);
+            }
+        }
     }
 }
  
