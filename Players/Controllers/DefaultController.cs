@@ -134,7 +134,16 @@ namespace Players.Controllers
         }
 
 
+        [HttpDelete]
+        public   IHttpActionResult Delete(int id)
+        {
+                    
 
+            var deleteplayer = db.Players.First(p => p.Id == id);
+            db.Players.Remove(deleteplayer);
+            db.SaveChanges();
+            return Ok();
+        }
     }
 }
  
