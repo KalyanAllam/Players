@@ -43,7 +43,7 @@ namespace Players.Controllers
 
         }
 
-
+        [HttpPost]
         public IHttpActionResult Post([FromBody] players player)
         {
             if (!ModelState.IsValid)
@@ -65,6 +65,38 @@ namespace Players.Controllers
                 return Ok(player);
             }
         }
+
+        [HttpPut]
+        public IHttpActionResult Put(int id, [FromBody] players player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                //find record based on playerId and update
+                var updateplayer = db.Players.First(p => p.Id ==  id);
+                updateplayer.Name = player.Name;
+                updateplayer.position = player.position;
+                db.SaveChanges();
+              
+                /*
+               foreach (var playerSkill in player.playerSkills)
+                {
+                    //update playerSkill based on skillId
+                    var currectSkill = db.PlayerSkills.First(s => s.playerId == playerSkill.Id);
+                    currectSkill.skill = playerSkill.skill;
+                    currectSkill.value = playerSkill.value;
+                    db.SaveChanges();
+                }
+                */
+                return Ok(player);
+            }
+        }
+
+
+
     }
 }
  
