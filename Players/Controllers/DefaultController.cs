@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Players.Context;
 using Players.Models;
-
+//https://www.c-sharpcorner.com/article/creating-web-api-using-code-first-approach-in-entity-framework/
 namespace Players.Controllers
 {
     public class DefaultController : ApiController
