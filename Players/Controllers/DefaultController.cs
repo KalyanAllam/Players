@@ -137,6 +137,24 @@ namespace Players.Controllers
         [HttpDelete]
         public   IHttpActionResult Delete(int id)
         {
+
+            /*
+             * CREATE TABLE [dbo].[players] (
+   
+    [Id]       INT            IDENTITY (1, 1) NOT NULL,
+	 [Name]     NVARCHAR (MAX) NULL,
+    [Position] NVARCHAR (MAX) NULL 
+);
+
+ ALTER TABLE [dbo].[players]
+    ADD CONSTRAINT [PK_dbo.players] PRIMARY KEY CLUSTERED ([Id] ASC);
+
+
+             * 
+             */
+
+
+
             /* On Cascade delete
           
 CREATE TABLE [dbo].[playerSkills] (
