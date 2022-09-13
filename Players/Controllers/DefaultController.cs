@@ -43,6 +43,44 @@ namespace Players.Controllers
 
         }
 
+
+
+        [HttpGet]
+        public IHttpActionResult Get(int id )
+        {
+            try
+            {
+                //Prepare data to be returned using Linq as follows
+                var result = from players in db.Players  
+                              where players.Id == id
+                              select new
+                             {
+                                 players.Name,
+                                 players.position,
+                                 playerSkills = from PlayerSkills in db.PlayerSkills
+                                                where PlayerSkills.playerId == players.Id
+                                                select new { PlayerSkills.Id, PlayerSkills.skill, PlayerSkills.value, PlayerSkills.playerId }
+                             };
+
+
+                
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                //If any exception occurs Internal Server Error i.e. Status Code 500 will be returned
+                return InternalServerError();
+            }
+
+
+
+
+        }
+
+
+
+
+
         [HttpPost]
         public IHttpActionResult Post([FromBody] players player)
         {
