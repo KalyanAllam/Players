@@ -137,7 +137,33 @@ namespace Players.Controllers
         [HttpDelete]
         public   IHttpActionResult Delete(int id)
         {
-                    
+            /* On Cascade delete
+          
+CREATE TABLE [dbo].[playerSkills] (
+    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+    [skill]      NVARCHAR (MAX) NULL,
+    [value]      INT            NOT NULL,
+    [playerId]   INT            NOT NULL,
+    [players_Id] INT            NULL
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_players_Id]
+    ON [dbo].[playerSkills]([players_Id] ASC);
+
+
+GO
+ALTER TABLE [dbo].[playerSkills]
+    ADD CONSTRAINT [PK_dbo.playerSkills] PRIMARY KEY CLUSTERED ([Id] ASC);
+
+
+GO
+ALTER TABLE [dbo].[playerSkills]
+    ADD CONSTRAINT [FK_dbo.playerSkills_dbo.players_players_Id] FOREIGN KEY ([players_Id]) REFERENCES [dbo].[players] ([Id]) ON DELETE CASCADE;
+
+
+             * */
 
             var deleteplayer = db.Players.First(p => p.Id == id);
             db.Players.Remove(deleteplayer);
